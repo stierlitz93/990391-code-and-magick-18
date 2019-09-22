@@ -54,11 +54,14 @@ window.renderStatistics = function (ctx, names, times) {
 
   var maxTime = maxElement(times);
 
-  for (var i = 0; i < names.length; i++) {
+  var renderPlayerStat = function (item, index) {
     ctx.fillStyle = COLOR_STYLE;
-    ctx.fillText(names[i], CLOUD_X_AND_STEP + COL_WIDT_AND_STEP * i, CLOUD_HEIGHT);
-    ctx.fillText(Math.round(times[i]), CLOUD_X_AND_STEP + COL_WIDT_AND_STEP * i, CLOUD_HEIGHT - STEP_CLOUD - STEP_CLOUD - COL_HEIGHT * times[i] / maxTime - STEP_CLOUD);
-    ctx.fillStyle = names[i] === 'Вы' ? COLOR_STYLE_MY : getColor();
-    ctx.fillRect(CLOUD_X_AND_STEP + COL_WIDT_AND_STEP * i, CLOUD_HEIGHT - STEP_CLOUD - STEP_CLOUD, COL_WIDTH, -COL_HEIGHT * times[i] / maxTime);
-  }
+    ctx.fillText(item, CLOUD_X_AND_STEP + COL_WIDT_AND_STEP * index, CLOUD_HEIGHT);
+    ctx.fillText(Math.round(times[index]), CLOUD_X_AND_STEP + COL_WIDT_AND_STEP * index, CLOUD_HEIGHT - STEP_CLOUD - STEP_CLOUD - COL_HEIGHT * times[index] / maxTime - STEP_CLOUD);
+
+    ctx.fillStyle = item === 'Вы' ? COLOR_STYLE_MY : getColor();
+    ctx.fillRect(CLOUD_X_AND_STEP + COL_WIDT_AND_STEP * index, CLOUD_HEIGHT - STEP_CLOUD - STEP_CLOUD, COL_WIDTH, -COL_HEIGHT * times[index] / maxTime);
+  };
+
+  names.forEach(renderPlayerStat);
 };
