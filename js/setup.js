@@ -4,46 +4,30 @@ var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'К�
 var wizardSurnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var wizardCoatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var wizardEyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+var wizards = [];
 var setup = document.querySelector('.setup');
 setup.classList.remove('hidden');
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var setupSimilarList = document.querySelector('.setup-similar-list');
 
-var getRandomInt = function (max) {
-  max = Math.floor(max);
-
-  return Math.floor(Math.random() * max);
-};
-
 var getRandomElement = function (el) {
-  var i = getRandomInt(el.length);
+  var i = Math.floor(Math.random() * el.length);
 
   return el[i];
 };
 
-var wizards = [
-  {
-    name: getRandomElement(wizardNames) + ' ' + getRandomElement(wizardSurnames),
+var getWizardsNames = function (name, surname) {
+  return getRandomElement(name) + ' ' + getRandomElement(surname);
+};
+
+for (var i = 0; i < 4; i++) {
+  wizards[i] = {
+    name: getWizardsNames(wizardNames, wizardSurnames),
     coatColor: getRandomElement(wizardCoatColors),
     eyesColor: getRandomElement(wizardEyesColors)
-  },
-  {
-    name: getRandomElement(wizardNames) + ' ' + getRandomElement(wizardSurnames),
-    coatColor: getRandomElement(wizardCoatColors),
-    eyesColor: getRandomElement(wizardEyesColors)
-  },
-  {
-    name: getRandomElement(wizardNames) + ' ' + getRandomElement(wizardSurnames),
-    coatColor: getRandomElement(wizardCoatColors),
-    eyesColor: getRandomElement(wizardEyesColors)
-  },
-  {
-    name: getRandomElement(wizardNames) + ' ' + getRandomElement(wizardSurnames),
-    coatColor: getRandomElement(wizardCoatColors),
-    eyesColor: getRandomElement(wizardEyesColors)
-  }
-];
+  };
+}
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -57,8 +41,8 @@ var renderWizard = function (wizard) {
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
+for (var j = 0; j < wizards.length; j++) {
+  fragment.appendChild(renderWizard(wizards[j]));
 }
 
 setupSimilarList.appendChild(fragment);
